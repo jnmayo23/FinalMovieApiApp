@@ -1,5 +1,10 @@
 package edu.quinnipiac.movieapiapp
 
+/*
+    @author Jordan Mayo
+    MovieListFragment that retrieves Movies by search data from ApiInterface
+ */
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +25,7 @@ class MovieListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerAdapter
 
+    //View binding
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
 
@@ -37,24 +43,25 @@ class MovieListFragment : Fragment() {
         recyclerView.adapter = recyclerAdapter
 
         binding.searchButton.setOnClickListener {
-            //if search input != null
-            val apiInterface = ApiInterface.create().getMovies(binding.searchInput.text.toString()) //do on search with search text parameter
 
-            //apiInterface.enqueue( Callback<List<Movie>>())
+            //Call to ApiInterface getMovies function with user input as parameter
+            val apiInterface = ApiInterface.create().getMovies(binding.searchInput.text.toString())
+
+            //Stores results in RecyclerAdapter to be displayed
             if (apiInterface != null) {
-                apiInterface.enqueue( object : Callback<ArrayList<Movie?>?> {
-                    override fun onResponse(call: Call<ArrayList<Movie?>?>?, response: Response<ArrayList<Movie?>?>) {
+                apiInterface.enqueue( object : Callback<Movie?> {
+                    override fun onResponse(call: Call<Movie?>?, response: Response<Movie?>?) {
                         if (response != null) {
                             Log.d("Movie List Fragment", response.body().toString())
                         }
                         if(response?.body() != null)
-                            recyclerAdapter.setMovieListItems(response.body()!! as ArrayList<Movie>)
+                            recyclerAdapter.setMovieListItems(response.body()!!)
                     }
 
-                    override fun onFailure(call: Call<ArrayList<Movie?>?>, t: Throwable) {
+                    override fun onFailure(call: Call<Movie?>?, t: Throwable) {
                         if (t != null) {
                             Toast.makeText(requireContext(), t.message,
-                                Toast.LENGTH_SHORT).show()
+                                Toast.LENGTH_LONG).show()
                             t.message?.let { Log.d("onFailure", it) }
                         }
                     }
@@ -65,6 +72,3 @@ class MovieListFragment : Fragment() {
     }
 }
 
-private fun <T> Call<T>?.enqueue(callback: Callback<ArrayList<Movie?>?>) {
-
-}

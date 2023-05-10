@@ -1,9 +1,12 @@
 package edu.quinnipiac.movieapiapp
 
-import android.graphics.Color
+/*
+    @author Jordan Mayo
+    MainActivity class that sets up activity for application
+ */
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
+    //Function that changes the background color of the application
     fun changeBackgroundColor(color: Int) {
         binding.drawerLayout.setBackgroundColor(color)
     }

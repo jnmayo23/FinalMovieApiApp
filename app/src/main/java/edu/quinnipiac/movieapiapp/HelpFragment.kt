@@ -1,5 +1,11 @@
 package edu.quinnipiac.movieapiapp
 
+/*
+    @author Jordan Mayo
+    HelpFragment
+    fragment_help.xml displays application information
+ */
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

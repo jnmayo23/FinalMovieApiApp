@@ -12,9 +12,9 @@
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
+            android:layout_height="220dp"
             android:importantForAccessibility="no"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/item_title"

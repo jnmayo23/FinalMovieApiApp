@@ -62,7 +62,23 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:text="This application consumes the API using Retrofit. The app has a menu drawer with options to share, go to settings, or get help. Clicking on a movie in the list will navigate to a view displaying that specific movie's details." />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_margin="5dp"
+        android:text="First, search for a movie or TV show title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_margin="5dp"
+        android:text="Then, click on a movie in the list to view that specific movie or TV show's details." />
 
 </LinearLayout>

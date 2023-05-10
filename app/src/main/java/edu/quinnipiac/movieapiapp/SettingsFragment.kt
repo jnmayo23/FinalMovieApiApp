@@ -1,48 +1,49 @@
 package edu.quinnipiac.movieapiapp
 
+/*
+    @author Jordan Mayo
+    SettingsFragment that allows user to change the background color of application
+ */
+
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import edu.quinnipiac.movieapiapp.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        val redButton = view.findViewById<Button>(R.id.red)
-        val orangeButton = view.findViewById<Button>(R.id.orange)
-        val yellowButton = view.findViewById<Button>(R.id.yellow)
-        val greenButton = view.findViewById<Button>(R.id.green)
-        val blueButton = view.findViewById<Button>(R.id.blue)
-        val purpleButton = view.findViewById<Button>(R.id.purple)
-        val pinkButton = view.findViewById<Button>(R.id.pink)
+    //View binding
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
-        redButton.setOnClickListener {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        //Calls the changeBackgroundColor function in MainActivity with the selected color as parameter
+        binding.red.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(233,0,0))
         }
-        orangeButton.setOnClickListener {
+        binding.orange.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(255,161,0))
         }
-        yellowButton.setOnClickListener {
+        binding.yellow.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(239,222,4))
         }
-        greenButton.setOnClickListener {
+        binding.green.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(22,158,0))
         }
-        blueButton.setOnClickListener {
+        binding.blue.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(0,96,158))
         }
-        purpleButton.setOnClickListener {
+        binding.purple.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(106,0,185))
         }
-        pinkButton.setOnClickListener {
+        binding.pink.setOnClickListener {
             (activity as MainActivity).changeBackgroundColor(Color.rgb(255,95,241))
         }
 

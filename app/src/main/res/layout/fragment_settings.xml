@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="25dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginTop="50dp"
         android:text="Background Color" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Red" />
+        android:text="Red" />
 
     <Button
         android:id="@+id/orange"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Orange" />
+        android:text="Orange" />
 
     <Button
         android:id="@+id/yellow"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Yellow" />
+        android:text="Yellow" />
 
     <Button
         android:id="@+id/green"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Green" />
+        android:text="Green" />
 
     <Button
         android:id="@+id/blue"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Blue" />
+        android:text="Blue" />
 
     <Button
         android:id="@+id/purple"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Purple" />
+        android:text="Purple" />
 
     <Button
         android:id="@+id/pink"
@@ -70,6 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Pink" />
+        android:text="Pink" />
 
 </LinearLayout>

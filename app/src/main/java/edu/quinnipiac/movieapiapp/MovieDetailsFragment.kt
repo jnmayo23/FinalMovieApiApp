@@ -1,59 +1,90 @@
 package edu.quinnipiac.movieapiapp
 
+/*
+    @author Jordan Mayo
+    MovieDetailsFragment that retrieves MovieInfo by IMDB id data from ApiInterface
+ */
+
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import edu.quinnipiac.movieapiapp.databinding.FragmentMovieDetailsBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MovieDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MovieDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+
+    var movie_id: String = ""
+
+    //View binding
+    private var _binding: FragmentMovieDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        val bundle = arguments
+        if (bundle == null) {
+            Log.e("MovieDetailsFragment", "MovieDetailsFragment did not receive movie id")
+
+            return
         }
+        movie_id = MovieDetailsFragmentArgs.fromBundle(bundle).movieId
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_details, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MovieDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MovieDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Call to ApiInterface getMovieInfo function with selected Movie IMDB id as parameter
+        val apiInterface = ApiInterface.create().getMovieInfo(movie_id)
+
+        //Stores results to be displayed on screen
+        if (apiInterface != null) {
+            apiInterface.enqueue( object : Callback<MovieInfo?> {
+                override fun onResponse(call: Call<MovieInfo?>?, response: Response<MovieInfo?>?) {
+                    if (response != null) {
+                        Log.d("Movie List Fragment", response.body().toString())
+                    }
+                    if(response?.body() != null) {
+                        var currMovie = response.body()!!
+                        Glide.with(context!!).load(currMovie.Poster).into(binding.movieImage)
+                        binding.movieTitle.text = currMovie.Title
+                        binding.moviePlot.text = currMovie.Plot
+                        binding.movieRated.text = currMovie.Rated
+                        binding.movieRuntime.text = currMovie.Runtime
+                        binding.movieReleaseDate.text = currMovie.Released
+                        binding.movieGenre.text = currMovie.Genre
+                        binding.movieDirector.text = currMovie.Director
+                        binding.movieWriter.text = currMovie.Writer
+                        binding.movieActors.text = currMovie.Actors
+                        binding.movieLanguage.text = currMovie.Language
+                        binding.movieImdbRating.text = currMovie.imdbRating
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<MovieInfo?>?, t: Throwable) {
+                    if (t != null) {
+                        Toast.makeText(requireContext(), t.message,
+                            Toast.LENGTH_LONG).show()
+                        t.message?.let { Log.d("onFailure", it) }
+                    }
+                }
+            })
+        }
+
     }
 }
